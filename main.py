@@ -163,6 +163,30 @@ def delete_user(user_id: int, db: Session = Depends(get_db)):
     return {"status": "deleted"}
 
 # ================= INVENTORY CORE =================
+
+import yagmail
+import os
+
+def send_reorder_email(items: list):
+    try:
+        yag = yagmail.SMTP(
+            user=os.environ.get("EMAIL_SENDER"),
+            password=os.environ.get("EMAIL_PASSWORD")
+        )
+        body = "The following items need reordering:\n\n"
+        for item in items:
+            body += f"• {item.item_name} — Current: {item.current_stock} | Security: {item.security_stock}\n"
+
+        yag.send(
+            to=os.environ.get("EMAIL_RECEIVER"),
+            subject="⚠️ ERP Reorder Alert",
+            contents=body
+        )
+    except Exception as e:
+        print(f"Email failed: {e}")
+
+
+
 @app.get("/stock-report/")
 def get_stock(db: Session = Depends(get_db)):
     return db.query(models.StockStatus).all()
@@ -249,6 +273,10 @@ def record_issue(iss: IssueCreate, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail="Insufficient stock for this issue")
     db.add(models.Issue(**iss.model_dump()))
     db.commit()
+    updated_stock = db.query(models.StockStatus).filter(models.StockStatus.item_id == iss.item_id).first()
+    if updated_stock and updated_stock.current_stock <= updated_stock.security_stock:
+        send_reorder_email([updated_stock])
+
     return {"status": "success"}
 
 @app.get("/issues/", dependencies=[Depends(verify_key)])
