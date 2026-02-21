@@ -3,6 +3,7 @@
 
 # Database
 *.db
+*.sql
 
 # Virtual environment
 venv/
