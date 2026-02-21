@@ -105,14 +105,15 @@ class SupplierCreate(BaseModel):
     lead_time: int = 0
 
 class ItemCreate(BaseModel):
-    item_name: str
-    item_type: str
-    spec_id: int
-    lead_time: int
-    security_stock: int
-    supplier_id: int
-    rack: Optional[str] = ""
-    bin: Optional[str] = ""
+    item_name:      str
+    item_type:      str
+    spec_id:        Optional[int]   = None
+    supplier_id:    Optional[int]   = None
+    lead_time:      Optional[int]   = None
+    security_stock: Optional[int]   = None
+    rate:           Optional[float] = None
+    rack:           Optional[str]   = ""
+    bin:            Optional[str]   = ""
 
 class InwardCreate(BaseModel):
     item_id: int
@@ -134,6 +135,16 @@ class LogFilter(BaseModel):
     action: Optional[str] = None
     table_name: Optional[str] = None
     username: Optional[str] = None
+
+class BomCreate(BaseModel):
+    final_item_id: int
+    raw_item_id:   int
+    quantity:      int
+
+class BomSubstituteCreate(BaseModel):
+    bom_id:             int
+    substitute_item_id: int
+    quantity:           int
 
 # ================= HELPERS =================
 def send_reorder_email(items: list):
@@ -318,24 +329,45 @@ def get_items(db: Session = Depends(get_db)):
 @app.post("/items/", dependencies=[Depends(verify_key)])
 def create_item(request: Request, item: ItemCreate, db: Session = Depends(get_db)):
     username = get_username_from_request(request, db)
-    spec = db.query(models.SpecList).filter(models.SpecList.id == item.spec_id).first()
-    if not spec:
-        log_failure(username, "CREATE", "items", None, f"Invalid spec_id: {item.spec_id}")
-        raise HTTPException(status_code=404, detail="Spec not found")
-    supplier = db.query(models.Supplier).filter(models.Supplier.id == item.supplier_id).first()
-    if not supplier:
-        log_failure(username, "CREATE", "items", None, f"Invalid supplier_id: {item.supplier_id}")
-        raise HTTPException(status_code=404, detail="Supplier not found")
-    new_item = models.Item(**item.model_dump())
+
+    if item.item_type.upper() == "RAW":
+        if item.spec_id is None:
+            log_failure(username, "CREATE", "items", None, "spec_id missing for RAW item")
+            raise HTTPException(status_code=400, detail="Spec is required for RAW items")
+        spec = db.query(models.SpecList).filter(models.SpecList.id == item.spec_id).first()
+        if not spec:
+            log_failure(username, "CREATE", "items", None, f"Invalid spec_id: {item.spec_id}")
+            raise HTTPException(status_code=404, detail="Spec not found")
+
+        if item.supplier_id is None:
+            log_failure(username, "CREATE", "items", None, "supplier_id missing for RAW item")
+            raise HTTPException(status_code=400, detail="Supplier is required for RAW items")
+        supplier = db.query(models.Supplier).filter(models.Supplier.id == item.supplier_id).first()
+        if not supplier:
+            log_failure(username, "CREATE", "items", None, f"Invalid supplier_id: {item.supplier_id}")
+            raise HTTPException(status_code=404, detail="Supplier not found")
+
+    new_item = models.Item(
+        item_name      = item.item_name.strip(),
+        item_type      = item.item_type,
+        spec_id        = item.spec_id        if item.item_type.upper() == "RAW" else None,
+        supplier_id    = item.supplier_id    if item.item_type.upper() == "RAW" else None,
+        lead_time      = item.lead_time      if item.item_type.upper() == "RAW" else None,
+        security_stock = item.security_stock if item.item_type.upper() == "RAW" else None,
+        rate           = item.rate           if item.item_type.upper() == "RAW" else None,
+        rack           = "",
+        bin            = ""
+    )
     db.add(new_item)
     try:
         db.commit()
-        log_success(db, username, "CREATE", "items", new_item.id, f"Created item: {item.item_name}")
+        log_success(db, username, "CREATE", "items", new_item.id, f"Created item: {item.item_name} ({item.item_type})")
         return {"status": "success"}
     except IntegrityError:
         db.rollback()
-        log_failure(username, "CREATE", "items", None, f"Integrity error creating item: {item.item_name}")
+        log_failure(username, "CREATE", "items", None, f"Integrity error: {item.item_name}")
         raise HTTPException(status_code=400, detail="Item already exists or invalid reference")
+    
 
 @app.delete("/items/{item_id}", dependencies=[Depends(verify_key)])
 def delete_item(item_id: int, request: Request, db: Session = Depends(get_db)):
@@ -558,3 +590,118 @@ def monthly_report(year: int, month: int, db: Session = Depends(get_db)):
             "closing_stock": closing_stock
         })
     return report
+
+
+@app.post("/bom/", dependencies=[Depends(verify_key)])
+def create_bom_entry(bom: BomCreate, request: Request, db: Session = Depends(get_db)):
+    username   = get_username_from_request(request, db)
+    final_item = db.query(models.Item).filter(models.Item.id == bom.final_item_id).first()
+    if not final_item:
+        raise HTTPException(status_code=404, detail="Final item not found")
+    raw_item = db.query(models.Item).filter(models.Item.id == bom.raw_item_id).first()
+    if not raw_item:
+        raise HTTPException(status_code=404, detail="Raw item not found")
+    new_entry = models.Bom(
+        final_item_id=bom.final_item_id,
+        raw_item_id=bom.raw_item_id,
+        quantity=bom.quantity
+    )
+    db.add(new_entry)
+    try:
+        db.commit()
+        log_success(db, username, "CREATE", "bom", new_entry.id,
+                    f"BOM: final={bom.final_item_id}, raw={bom.raw_item_id}, qty={bom.quantity}")
+        return {"status": "success", "bom_id": new_entry.id}
+    except IntegrityError:
+        db.rollback()
+        log_failure(username, "CREATE", "bom", None,
+                    f"Integrity error: final_item_id={bom.final_item_id}, raw_item_id={bom.raw_item_id}")
+        raise HTTPException(status_code=400, detail="BOM entry already exists or invalid reference")
+
+@app.delete("/bom/{bom_id}", dependencies=[Depends(verify_key)])
+def delete_bom_entry(bom_id: int, request: Request, db: Session = Depends(get_db)):
+    username = get_username_from_request(request, db)
+    entry = db.query(models.Bom).filter(models.Bom.id == bom_id).first()
+    if not entry:
+        raise HTTPException(status_code=404, detail="BOM entry not found")
+    db.delete(entry)
+    db.commit()
+    log_success(db, username, "DELETE", "bom", bom_id, f"Deleted BOM entry id={bom_id}")
+    return {"status": "deleted"}
+
+@app.get("/bom/{final_item_id}", dependencies=[Depends(verify_key)])
+def get_bom(final_item_id: int, db: Session = Depends(get_db)):
+    entries = db.query(models.Bom).filter(models.Bom.final_item_id == final_item_id).all()
+    result  = []
+    for entry in entries:
+        result.append({
+            "bom_id":       entry.id,
+            "raw_item_id":  entry.raw_item_id,
+            "raw_item_name": entry.raw_item.item_name if entry.raw_item else None,
+            "quantity":     entry.quantity,
+            "substitutes":  [
+                {
+                    "id":                s.id,
+                    "substitute_item_id": s.substitute_item_id,
+                    "substitute_item_name": s.substitute_item.item_name if s.substitute_item else None,
+                    "quantity":          s.quantity
+                }
+                for s in entry.substitutes
+            ]
+        })
+    return result
+
+@app.get("/bom/", dependencies=[Depends(verify_key)])
+def get_full_bom(db: Session = Depends(get_db)):
+    entries = db.query(models.Bom).all()
+    result  = []
+    for entry in entries:
+        result.append({
+            "bom_id":          entry.id,
+            "final_item_id":   entry.final_item_id,
+            "final_item_name": entry.final_item.item_name if entry.final_item else None,
+            "raw_item_id":     entry.raw_item_id,
+            "raw_item_name":   entry.raw_item.item_name if entry.raw_item else None,
+            "quantity":        entry.quantity
+        })
+    return result
+
+@app.post("/bom/substitute/", dependencies=[Depends(verify_key)])
+def create_bom_substitute(sub: BomSubstituteCreate, request: Request, db: Session = Depends(get_db)):
+    username  = get_username_from_request(request, db)
+    bom_entry = db.query(models.Bom).filter(models.Bom.id == sub.bom_id).first()
+    if not bom_entry:
+        log_failure(username, "CREATE", "bom_substitutes", None, f"BOM entry not found: bom_id={sub.bom_id}")
+        raise HTTPException(status_code=404, detail="BOM entry not found")
+    sub_item = db.query(models.Item).filter(models.Item.id == sub.substitute_item_id).first()
+    if not sub_item:
+        log_failure(username, "CREATE", "bom_substitutes", None, f"Substitute item not found: {sub.substitute_item_id}")
+        raise HTTPException(status_code=404, detail="Substitute item not found")
+    new_sub = models.BomSubstitute(
+        bom_id=sub.bom_id,
+        substitute_item_id=sub.substitute_item_id,
+        quantity=sub.quantity
+    )
+    db.add(new_sub)
+    try:
+        db.commit()
+        log_success(db, username, "CREATE", "bom_substitutes", new_sub.id,
+                    f"Substitute: bom_id={sub.bom_id}, item_id={sub.substitute_item_id}, qty={sub.quantity}")
+        return {"status": "success", "sub_id": new_sub.id}
+    except IntegrityError:
+        db.rollback()
+        log_failure(username, "CREATE", "bom_substitutes", None, f"Integrity error for bom_id={sub.bom_id}")
+        raise HTTPException(status_code=400, detail="Substitute already exists or invalid reference")
+
+@app.delete("/bom/substitute/{sub_id}", dependencies=[Depends(verify_key)])
+def delete_bom_substitute(sub_id: int, request: Request, db: Session = Depends(get_db)):
+    username = get_username_from_request(request, db)
+    sub = db.query(models.BomSubstitute).filter(models.BomSubstitute.id == sub_id).first()
+    if not sub:
+        log_failure(username, "DELETE", "bom_substitutes", sub_id, "Substitute not found")
+        raise HTTPException(status_code=404, detail="Substitute not found")
+    detail = f"Deleted substitute: bom_id={sub.bom_id}, item_id={sub.substitute_item_id}"
+    db.delete(sub)
+    db.commit()
+    log_success(db, username, "DELETE", "bom_substitutes", sub_id, detail)
+    return {"status": "deleted"}

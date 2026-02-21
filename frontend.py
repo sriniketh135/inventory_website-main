@@ -151,6 +151,8 @@ def item_selector():
     )
 
 
+
+
 def filter_df(df, search, columns):
     """Return rows where any of the given columns contain the search string (case-insensitive)."""
     if not search or df.empty:
@@ -207,12 +209,12 @@ else:
     role  = st.session_state.user["role"]
     uname = st.session_state.user["username"]
 
-    menu  = ["Home", "Stock View"]
-    icons = ["house", "grid"]
+    menu  = ["Home", "Stock View","Feasibility Check"]
+    icons = ["house", "grid", "check2-square"]
 
     if role in ["Admin", "Manager"]:
-        menu  += ["Record Inward", "Record Issue", "View Transactions", "Reports"]
-        icons += ["box-arrow-in-right", "box-arrow-right", "eye", "file-earmark-bar-graph"]
+        menu  += ["Record Inward", "Record Issue", "View Transactions", "Reports","BOM Entry", "BOM View"]
+        icons += ["box-arrow-in-right", "box-arrow-right", "eye", "file-earmark-bar-graph", "list-task", "eye"]
 
     if role == "Admin":
         menu  += [
@@ -271,7 +273,7 @@ else:
         st.info(f"System Online | Role: {role}")
         data = fetch("stock-report/")
         if data:
-            reorder_items = [r for r in data if r["current_stock"] <= r["security_stock"]]
+            reorder_items = [r for r in data if r["current_stock"] <= r["security_stock"] and r["item_type"] == "RAW"]
             if reorder_items and not st.session_state.get("alert_dismissed"):
                 with st.container(border=True):
                     st.error(f"⚠️ **Reorder Alert — {len(reorder_items)} item(s) need attention**")
@@ -295,8 +297,9 @@ else:
             df["Status"] = ["🔴 REORDER" if c <= s else "🟢 OK"
                             for c, s in zip(df["current_stock"], df["security_stock"])]
 
-            search = st.text_input("🔍 Search by item name or ID", placeholder="e.g. Widget or 5", key="sv_search")
+            search = st.text_input("🔍 Search by item name or ID", placeholder="Search for Item", key="sv_search")
             df = filter_df(df, search, ["item_id", "item_name"])
+            df = df[df["item_type"] == "RAW"].sort_values(by="Status", ascending=True)  # Only RAW items are relevant for stock view
             st.caption(f"{len(df)} result(s)")
 
             st.data_editor(df, disabled=True, hide_index=True, use_container_width=True,
@@ -433,9 +436,9 @@ else:
             df.insert(2, "item_name", df["item_id"].map(items_map).fillna(""))
 
             sc1, sc2, sc3 = st.columns(3)
-            s_item    = sc1.text_input("🔍 Item name or ID",             key="inv_item",    placeholder="e.g. Widget or 5")
-            s_invoice = sc2.text_input("🔍 Invoice number",              key="inv_invoice", placeholder="e.g. INV-001")
-            s_date    = sc3.text_input("🔍 Date (YYYY-MM-DD or partial)", key="inv_date",   placeholder="e.g. 2026-02")
+            s_item    = sc1.text_input("🔍 Item name or ID",             key="inv_item",    placeholder=" ")
+            s_invoice = sc2.text_input("🔍 Invoice number",              key="inv_invoice", placeholder=" ")
+            s_date    = sc3.text_input("🔍 Date (YYYY-MM-DD or partial)", key="inv_date",   placeholder=" ")
 
             df = filter_df(df, s_item,    ["item_id", "item_name"])
             df = filter_df(df, s_invoice, ["invoice_number"])
@@ -539,47 +542,107 @@ else:
         s_map = {s["spec"]: s["id"] for s in specs}
         v_map = {v["name"]: v["id"] for v in supps}
 
-        if not s_map or not v_map:
-            st.warning("Please add specifications and suppliers first.")
-        else:
-            with st.form("item"):
-                c1, c2 = st.columns(2)
-                name = c1.text_input("Item Name")
-                cat  = c2.selectbox("Category", ["Select", "RAW", "FINAL"])
-                sp   = c1.selectbox("Spec",     ["Select"] + list(s_map))
-                su   = c2.selectbox("Supplier", ["Select"] + list(v_map))
-                lt   = c1.number_input("Lead Time",      min_value=0)
-                ss   = c2.number_input("Security Stock", min_value=0)
-                msg  = st.empty()
+        # Outside the form — reacts immediately on change
+        c1,c2 = st.columns(2)
+        cat    = c2.selectbox("Item Type", ["RAW", "FINAL"], key="add_item_type")
+        name = c1.text_input("Item Name")
+        is_raw = (cat == "RAW")
 
+        with st.form("item_form"):
+            fc1, fc2 = st.columns(2)
+            
+
+            if is_raw:
+                if not s_map or not v_map:
+                    st.warning("Please add specifications and suppliers before adding RAW items.")
+                    st.form_submit_button("Save", disabled=True)
+                else:
+                    sp   = fc1.selectbox("Specification",  ["Select"] + list(s_map))
+                    su   = fc2.selectbox("Supplier",        ["Select"] + list(v_map))
+                    lt   = fc1.number_input("Lead Time (Days)", min_value=0)
+                    rate = fc2.number_input("Rate",             min_value=0.0)
+                    ss   = fc1.number_input("Security Stock",   min_value=0)
+
+                    msg = st.empty()
+                    if st.form_submit_button("Save"):
+                        actual_is_raw = (st.session_state.get("add_item_type", "RAW") == "RAW")
+                        if not name.strip():
+                            msg.error("Item Name is required.")
+                        elif sp == "Select":
+                            msg.error("Please select a specification.")
+                        elif su == "Select":
+                            msg.error("Please select a supplier.")
+                        elif sp not in s_map:
+                            msg.error("Invalid specification selected.")
+                        elif su not in v_map:
+                            msg.error("Invalid supplier selected.")
+                        else:
+                            try:
+                                res = requests.post(
+                                    f"{API_URL}/items/",
+                                    json={
+                                        "item_name":      name.strip(),
+                                        "item_type":      "RAW",
+                                        "spec_id":        s_map[sp],
+                                        "supplier_id":    v_map[su],
+                                        "lead_time":      lt,
+                                        "rate":           rate,
+                                        "security_stock": ss,
+                                        "rack": "", "bin": ""
+                                    },
+                                    headers=auth_headers(),
+                                    timeout=5
+                                )
+                                if res.status_code == 200:
+                                    msg.success("Item Added")
+                                    time.sleep(1)
+                                    st.rerun()
+                                else:
+                                    msg.error(res.json().get("detail", "Failed to add item"))
+                                    time.sleep(1)
+                                    msg.empty()
+                            except Exception:
+                                msg.error("Could not connect to backend.")
+            else:
+                # FINAL — all fields greyed out except name
+                fc1.text_input("Specification",     value="N/A — FINAL item", disabled=True)
+                fc2.text_input("Supplier",          value="N/A — FINAL item", disabled=True)
+                fc1.text_input("Lead Time (Days)",  value="N/A — FINAL item", disabled=True)
+                fc2.text_input("Rate",              value="N/A — FINAL item", disabled=True)
+                fc1.text_input("Security Stock",    value="N/A — FINAL item", disabled=True)
+
+                msg = st.empty()
                 if st.form_submit_button("Save"):
                     if not name.strip():
                         msg.error("Item Name is required.")
-                    elif cat == "Select":
-                        msg.error("Please select a category.")
-                    elif sp == "Select":
-                        msg.error("Please select a specification.")
-                    elif su == "Select":
-                        msg.error("Please select a supplier.")
                     else:
-                        res = requests.post(
-                            f"{API_URL}/items/",
-                            json={
-                                "item_name": name.strip(), "item_type": cat,
-                                "spec_id": s_map[sp], "lead_time": lt,
-                                "security_stock": ss, "supplier_id": v_map[su],
-                                "rack": "", "bin": ""
-                            },
-                            headers=auth_headers()
-                        )
-                        if res.status_code == 200:
-                            msg.success("Item Added")
-                            time.sleep(1)
-                            st.rerun()
-                        else:
-                            msg.error(res.json().get("detail", "Failed to add item"))
-                            time.sleep(1)
-                            msg.empty()
+                        try:
+                            res = requests.post(
+                                f"{API_URL}/items/",
+                                json={
+                                    "item_name":      name.strip(),
+                                    "item_type":      "FINAL",
+                                    "spec_id":        None,
+                                    "supplier_id":    None,
+                                    "lead_time":      None,
+                                    "rate":           None,
+                                    "security_stock": 0,
+                                    "rack": "", "bin": ""
+                                },
+                                headers=auth_headers(),
+                                timeout=5
+                            )
+                            if res.status_code == 200:
+                                msg.success("Item Added")
+                                time.sleep(1)
+                                st.rerun()
+                            else:
+                                msg.error(res.json().get("detail", "Failed to add item"))
+                                time.sleep(1)
+                                msg.empty()
+                        except Exception:
+                            msg.error("Could not connect to backend.")
+
 
     # ── DELETE ITEM ─────────────────────────────────────────────────
     elif page == "Delete Item":
@@ -647,8 +710,8 @@ else:
             ])
 
             sc1, sc2 = st.columns(2)
-            s_name = sc1.text_input("🔍 Supplier name", key="sup_name", placeholder="e.g. Tata")
-            s_date = sc2.text_input("🔍 Last purchase date (partial)", key="sup_date", placeholder="e.g. 2026-01")
+            s_name = sc1.text_input("🔍 Supplier name", key="sup_name", placeholder=" ")
+            s_date = sc2.text_input("🔍 Last purchase date (partial)", key="sup_date", placeholder=" ")
 
             df = filter_df(df, s_name, ["name"])
             df = filter_df(df, s_date, ["last_purchase_date"])
@@ -700,7 +763,7 @@ else:
         if data:
             df = pd.DataFrame(data)
             c1,c2,c3 = st.columns(3)
-            s_spec = c1.text_input("🔍 Search by spec name or description", key="spec_search", placeholder="e.g. Steel or IS:2062")
+            s_spec = c1.text_input("🔍 Search by specification", key="spec_search", placeholder=" ")
             df = filter_df(df, s_spec, ["spec", "description"])
             st.caption(f"{len(df)} result(s)")
             st.dataframe(df, use_container_width=True, hide_index=True)
@@ -910,3 +973,469 @@ else:
                     st.rerun()
         else:
             st.info("No log entries found matching your filters.")
+
+    elif page == "BOM Entry":
+        st.title("🔧 BOM Entry")
+
+        all_items   = fetch("items/")
+        final_items = [i for i in all_items if i.get("item_type", "").upper() in ("FINAL", "Final")]
+        raw_items   = [i for i in all_items if i.get("item_type", "").upper() in ("RAW", "Raw")]
+
+        if not final_items:
+            st.warning("No FINAL type items found.")
+        elif not raw_items:
+            st.warning("No RAW type items found.")
+        else:
+            df_final      = pd.DataFrame(final_items)
+            raw_options   = {f"{i['id']} | {i['item_name']}": i["id"] for i in raw_items}
+            raw_opts_list = list(raw_options.keys())
+
+            # ── FINAL ITEM SELECTOR ──────────────────────────────────────
+            if "be_iid" not in st.session_state:
+                st.session_state.be_iid = "Select ID"
+            if "be_iname" not in st.session_state:
+                st.session_state.be_iname = "Select Name"
+
+            def sync_be_name():
+                if st.session_state.be_iid != "Select ID":
+                    match = df_final[df_final["id"] == int(st.session_state.be_iid)]
+                    if not match.empty:
+                        st.session_state.be_iname = match.iloc[0]["item_name"]
+
+            def sync_be_id():
+                if st.session_state.be_iname != "Select Name":
+                    match = df_final[df_final["item_name"] == st.session_state.be_iname]
+                    if not match.empty:
+                        st.session_state.be_iid = str(match.iloc[0]["id"])
+
+            c1, c2 = st.columns(2)
+            c1.selectbox("Finished Item — by ID",   ["Select ID"]   + [str(x) for x in df_final["id"]], key="be_iid",   on_change=sync_be_name)
+            c2.selectbox("Finished Item — by Name", ["Select Name"] + df_final["item_name"].tolist(),    key="be_iname", on_change=sync_be_id)
+
+            if st.session_state.be_iname == "Select Name" or st.session_state.be_iid == "Select ID":
+                st.info("Select a finished item to load or create its BOM.")
+            else:
+                finished_id   = int(st.session_state.be_iid)
+                finished_name = st.session_state.be_iname
+
+                bom_key    = f"be_rows_{finished_id}"
+                loaded_key = f"be_loaded_{finished_id}"
+
+                if bom_key not in st.session_state or st.session_state.get(loaded_key) != finished_id:
+                    try:
+                        existing = requests.get(
+                            f"{API_URL}/bom/{finished_id}",
+                            headers=auth_headers(), timeout=5
+                        ).json()
+                    except Exception:
+                        existing = []
+
+                    if existing:
+                        st.session_state[bom_key] = [
+                            {
+                                "raw":      next((k for k, v in raw_options.items() if v == r["raw_item_id"]), raw_opts_list[0]),
+                                "quantity": r["quantity"],
+                                "bom_id":   r["bom_id"],
+                                "substitutes": [
+                                    {
+                                        "raw":      next((k for k, v in raw_options.items() if v == s["substitute_item_id"]), raw_opts_list[0]),
+                                        "quantity": s["quantity"],
+                                        "sub_id":   s["id"]
+                                    }
+                                    for s in r.get("substitutes", [])
+                                ]
+                            }
+                            for r in existing
+                        ]
+                    else:
+                        st.session_state[bom_key] = [
+                            {"raw": raw_opts_list[0], "quantity": 1, "bom_id": None, "substitutes": []}
+                        ]
+                    st.session_state[loaded_key] = finished_id
+
+                rows = st.session_state[bom_key]
+
+                st.divider()
+                st.subheader(f"BOM — {finished_name}")
+                st.caption(f"{len(rows)} material row(s)")
+
+                if st.button("➕ Add Material Row"):
+                    rows.append({"raw": raw_opts_list[0], "quantity": 1, "bom_id": None, "substitutes": []})
+                    st.rerun()
+
+                st.divider()
+
+                rows_to_delete = []
+                for idx, row in enumerate(rows):
+                    with st.container(border=True):
+                        # ── PRIMARY ROW ──────────────────────────────────
+                        c1, c2, c3, c4 = st.columns([0.4, 3.5, 1, 1.5])
+                        if c1.button("🗑️", key=f"be_del_{idx}", help="Remove row"):
+                            rows_to_delete.append(idx)
+
+                        row["raw"] = c2.selectbox(
+                            f"Raw Material {idx+1}",
+                            raw_opts_list,
+                            index=raw_opts_list.index(row["raw"]) if row["raw"] in raw_opts_list else 0,
+                            key=f"be_raw_{idx}",
+                            label_visibility="collapsed"
+                        )
+                        row["quantity"] = c3.number_input(
+                            "Qty", min_value=1, step=1,
+                            value=int(row["quantity"]),
+                            key=f"be_qty_{idx}",
+                            label_visibility="collapsed"
+                        )
+                        if c4.button("➕ Substitute", key=f"be_addsub_{idx}"):
+                            row["substitutes"].append({"raw": raw_opts_list[0], "quantity": 1, "sub_id": None})
+                            st.rerun()
+
+                        # ── SUBSTITUTE ROWS ──────────────────────────────
+                        subs_to_delete = []
+                        for s_idx, sub in enumerate(row["substitutes"]):
+                            sc1, sc2, sc3, sc4 = st.columns([0.8, 3.2, 1, 0.4])
+                            sc1.markdown("<span style='color:gray'>↳ Sub</span>", unsafe_allow_html=True)
+
+                            sub["raw"] = sc2.selectbox(
+                                f"Sub {s_idx+1}",
+                                raw_opts_list,
+                                index=raw_opts_list.index(sub["raw"]) if sub["raw"] in raw_opts_list else 0,
+                                key=f"be_sub_{idx}_{s_idx}",
+                                label_visibility="collapsed"
+                            )
+                            sub["quantity"] = sc3.number_input(
+                                "SQty", min_value=1, step=1,
+                                value=int(sub["quantity"]),
+                                key=f"be_sqty_{idx}_{s_idx}",
+                                label_visibility="collapsed"
+                            )
+                            if sc4.button("🗑️", key=f"be_delsub_{idx}_{s_idx}"):
+                                subs_to_delete.append(s_idx)
+
+                        if subs_to_delete:
+                            for s_i in sorted(subs_to_delete, reverse=True):
+                                sub = row["substitutes"][s_i]
+                                if sub.get("sub_id"):
+                                    try:
+                                        requests.delete(
+                                            f"{API_URL}/bom/substitute/{sub['sub_id']}",
+                                            headers=auth_headers(), timeout=5
+                                        )
+                                    except Exception:
+                                        pass
+                                row["substitutes"].pop(s_i)
+                            st.rerun()
+
+                if rows_to_delete:
+                    for i in sorted(rows_to_delete, reverse=True):
+                        bom_id = rows[i].get("bom_id")
+                        if bom_id:
+                            try:
+                                requests.delete(f"{API_URL}/bom/{bom_id}", headers=auth_headers(), timeout=5)
+                            except Exception:
+                                pass
+                        rows.pop(i)
+                    st.rerun()
+
+                st.divider()
+
+                msg = st.empty()
+                if st.button("💾 Save BOM", type="primary"):
+                    primary_raws = [row["raw"] for row in rows]
+                    if len(primary_raws) != len(set(primary_raws)):
+                        msg.error("Duplicate raw materials — each can only appear once as a primary row.")
+                    else:
+                        errors        = []
+                        success_count = 0
+
+                        for idx, row in enumerate(rows):
+                            if row["raw"] not in raw_options:
+                                errors.append(f"Row {idx+1}: invalid raw material.")
+                                continue
+
+                            # Save primary row if new
+                            if not row.get("bom_id"):
+                                try:
+                                    res = requests.post(
+                                        f"{API_URL}/bom/",
+                                        json={
+                                            "final_item_id": finished_id,
+                                            "raw_item_id":   raw_options[row["raw"]],
+                                            "quantity":      row["quantity"]
+                                        },
+                                        headers=auth_headers(), timeout=5
+                                    )
+                                    if res.status_code == 200:
+                                        row["bom_id"] = res.json().get("bom_id")
+                                        success_count += 1
+                                    else:
+                                        errors.append(f"Row {idx+1}: {res.json().get('detail', 'Failed')}")
+                                        continue
+                                except Exception:
+                                    errors.append(f"Row {idx+1}: Could not connect to backend.")
+                                    continue
+                            else:
+                                success_count += 1
+
+                            # Save substitutes if new
+                            for s_idx, sub in enumerate(row["substitutes"]):
+                                if sub.get("sub_id"):
+                                    continue
+                                if sub["raw"] not in raw_options:
+                                    errors.append(f"Row {idx+1} Sub {s_idx+1}: invalid raw material.")
+                                    continue
+                                try:
+                                    sres = requests.post(
+                                        f"{API_URL}/bom/substitute/",
+                                        json={
+                                            "bom_id":             row["bom_id"],
+                                            "substitute_item_id": raw_options[sub["raw"]],
+                                            "quantity":           sub["quantity"]
+                                        },
+                                        headers=auth_headers(), timeout=5
+                                    )
+                                    if sres.status_code == 200:
+                                        sub["sub_id"] = sres.json().get("sub_id")
+                                    else:
+                                        errors.append(f"Row {idx+1} Sub {s_idx+1}: {sres.json().get('detail', 'Failed')}")
+                                except Exception:
+                                    errors.append(f"Row {idx+1} Sub {s_idx+1}: Could not connect to backend.")
+
+                        for e in errors:
+                            st.error(e)
+                        if not errors:
+                            msg.success("✅ BOM saved successfully!")
+                            del st.session_state[bom_key]
+                            del st.session_state[loaded_key]
+                            time.sleep(1)
+                            st.rerun()
+
+    elif page == "BOM View":
+        st.title("📋 BOM View")
+
+        all_items   = fetch("items/")
+        final_items = [i for i in all_items if i.get("item_type", "").upper() in ("FINAL", "Final")]
+
+        if not final_items:
+            st.warning("No FINAL type items found.")
+        else:
+            df_final = pd.DataFrame(final_items)
+
+            if "bv_iid" not in st.session_state:
+                st.session_state.bv_iid = "Select ID"
+            if "bv_iname" not in st.session_state:
+                st.session_state.bv_iname = "Select Name"
+
+            def sync_bv_name():
+                if st.session_state.bv_iid != "Select ID":
+                    match = df_final[df_final["id"] == int(st.session_state.bv_iid)]
+                    if not match.empty:
+                        st.session_state.bv_iname = match.iloc[0]["item_name"]
+
+            def sync_bv_id():
+                if st.session_state.bv_iname != "Select Name":
+                    match = df_final[df_final["item_name"] == st.session_state.bv_iname]
+                    if not match.empty:
+                        st.session_state.bv_iid = str(match.iloc[0]["id"])
+
+            c1, c2 = st.columns(2)
+            c1.selectbox("Filter by ID",   ["Select ID"]   + [str(x) for x in df_final["id"]], key="bv_iid",   on_change=sync_bv_name)
+            c2.selectbox("Filter by Name", ["Select Name"] + df_final["item_name"].tolist(),    key="bv_iname", on_change=sync_bv_id)
+
+            if st.session_state.bv_iname == "Select Name" or st.session_state.bv_iid == "Select ID":
+                st.info("Select a finished item to view its BOM.")
+            else:
+                fid  = int(st.session_state.bv_iid)
+                name = st.session_state.bv_iname
+
+                try:
+                    bom = requests.get(f"{API_URL}/bom/{fid}", headers=auth_headers(), timeout=5).json()
+                except Exception:
+                    bom = []
+                    st.error("Could not connect to backend.")
+
+                st.divider()
+
+                if not bom:
+                    st.info(f"No BOM defined for **{name}** yet.")
+                else:
+                    st.subheader(f"BOM — {name}")
+                    st.caption(f"{len(bom)} material(s)")
+
+                    # Build a flat display rows list that includes substitutes indented
+                    display_rows = []
+                    for r in bom:
+                        display_rows.append({
+                            "Type":          "Primary",
+                            "BOM ID":        r["bom_id"],
+                            "Raw Item ID":   r["raw_item_id"],
+                            "Raw Item Name": r["raw_item_name"],
+                            "Qty / Unit":    r["quantity"],
+                        })
+                        for s in r.get("substitutes", []):
+                            display_rows.append({
+                                "Type":          "↳ Substitute",
+                                "BOM ID":        s.get("id", ""),
+                                "Raw Item ID":   s["substitute_item_id"],
+                                "Raw Item Name": s["substitute_item_name"],
+                                "Qty / Unit":    s["quantity"],
+                            })
+
+                    df_display = pd.DataFrame(display_rows)
+
+                    st.data_editor(
+                        df_display, disabled=True, hide_index=True, use_container_width=True,
+                        column_config={
+                            "Type":          st.column_config.TextColumn("Type",          width="small"),
+                            "BOM ID":        st.column_config.NumberColumn("BOM ID",      width="small"),
+                            "Raw Item ID":   st.column_config.NumberColumn("Raw Item ID", width="small"),
+                            "Raw Item Name": st.column_config.TextColumn("Raw Item Name", width="large"),
+                            "Qty / Unit":    st.column_config.NumberColumn("Qty / Unit",  width="small"),
+                        }
+                    )
+
+    # ── FEASIBILITY CHECK ───────────────────────────────────────────
+    elif page == "Feasibility Check":
+        st.title("🔍 Production Feasibility Check")
+
+        all_items   = fetch("items/")
+        final_items = [i for i in all_items if i.get("item_type", "").upper() in ("FINAL", "Final")]
+
+        if not final_items:
+            st.warning("No FINAL type items found.")
+        else:
+            df_final = pd.DataFrame(final_items)
+
+            if "fc_iid" not in st.session_state:
+                st.session_state.fc_iid = "Select ID"
+            if "fc_iname" not in st.session_state:
+                st.session_state.fc_iname = "Select Name"
+
+            def sync_fc_name():
+                if st.session_state.fc_iid != "Select ID":
+                    match = df_final[df_final["id"] == int(st.session_state.fc_iid)]
+                    if not match.empty:
+                        st.session_state.fc_iname = match.iloc[0]["item_name"]
+
+            def sync_fc_id():
+                if st.session_state.fc_iname != "Select Name":
+                    match = df_final[df_final["item_name"] == st.session_state.fc_iname]
+                    if not match.empty:
+                        st.session_state.fc_iid = str(match.iloc[0]["id"])
+
+            c1, c2, c3 = st.columns([2, 2, 1])
+            c1.selectbox("Finished Item — by ID",   ["Select ID"]   + [str(x) for x in df_final["id"]], key="fc_iid",   on_change=sync_fc_name)
+            c2.selectbox("Finished Item — by Name", ["Select Name"] + df_final["item_name"].tolist(),    key="fc_iname", on_change=sync_fc_id)
+            produce_qty = c3.number_input("Quantity to Produce", min_value=1, step=1, value=1, key="fc_qty")
+
+            if st.session_state.fc_iname == "Select Name" or st.session_state.fc_iid == "Select ID":
+                st.info("Select a finished item and quantity to check feasibility.")
+            else:
+                fid  = int(st.session_state.fc_iid)
+                name = st.session_state.fc_iname
+
+                # ── Fetch BOM ──────────────────────────────────────────
+                try:
+                    bom = requests.get(f"{API_URL}/bom/{fid}", headers=auth_headers(), timeout=5).json()
+                except Exception:
+                    bom = []
+                    st.error("Could not connect to backend.")
+
+                st.divider()
+
+                if not bom:
+                    st.warning(f"No BOM defined for **{name}**. Cannot check feasibility.")
+                else:
+                    # ── Fetch stock ────────────────────────────────────
+                    stock_data = fetch("stock-report/")
+                    stock_map  = {r["item_id"]: float(r["current_stock"]) for r in stock_data} if stock_data else {}
+
+                    # ── Evaluate each BOM row ──────────────────────────
+                    all_ok      = True
+                    result_rows = []
+
+                    for row in bom:
+                        required      = row["quantity"] * produce_qty
+                        available     = stock_map.get(row["raw_item_id"], 0)
+                        primary_ok    = available >= required
+                        shortfall     = max(0, required - available)
+
+                        # Check substitutes if primary is short
+                        sub_results = []
+                        sub_covers  = False
+                        for s in row.get("substitutes", []):
+                            s_required  = s["quantity"] * produce_qty
+                            s_available = stock_map.get(s["substitute_item_id"], 0)
+                            s_ok        = s_available >= s_required
+                            sub_results.append({
+                                "name":      s["substitute_item_name"],
+                                "required":  s_required,
+                                "available": s_available,
+                                "ok":        s_ok,
+                            })
+                            if s_ok:
+                                sub_covers = True
+
+                        row_feasible = primary_ok or sub_covers
+                        if not row_feasible:
+                            all_ok = False
+
+                        result_rows.append({
+                            "raw_item_id":   row["raw_item_id"],
+                            "raw_item_name": row["raw_item_name"],
+                            "required":      required,
+                            "available":     available,
+                            "primary_ok":    primary_ok,
+                            "shortfall":     shortfall,
+                            "sub_results":   sub_results,
+                            "sub_covers":    sub_covers,
+                            "row_feasible":  row_feasible,
+                        })
+
+                    # ── Summary banner ─────────────────────────────────
+                    if all_ok:
+                        st.success(f"✅ **Feasible** — All materials available to produce **{produce_qty}× {name}**.")
+                    else:
+                        st.error(f"❌ **Not Feasible** — One or more materials are insufficient to produce **{produce_qty}× {name}**.")
+
+                    st.subheader("Material Breakdown")
+                    st.caption(f"{len(result_rows)} BOM line(s) · producing {produce_qty}× {name}")
+
+                    # ── Per-row detail cards ───────────────────────────
+                    for r in result_rows:
+                        if r["primary_ok"]:
+                            icon   = "🟢"
+                            status = "OK"
+                        elif r["sub_covers"]:
+                            icon   = "🟡"
+                            status = "OK via Substitute"
+                        else:
+                            icon   = "🔴"
+                            status = "SHORTAGE"
+
+                        with st.container(border=True):
+                            h1, h2, h3, h4, h5 = st.columns([3, 1.2, 1.2, 1.2, 1.5])
+                            h1.markdown(f"**{r['raw_item_name']}**  `ID {r['raw_item_id']}`")
+                            h2.metric("Required",  r["required"])
+                            h3.metric("In Stock",  int(r["available"]))
+                            h4.metric("Shortfall", int(r["shortfall"]) if not r["primary_ok"] else 0,
+                                      delta=None if r["primary_ok"] else f"-{int(r['shortfall'])}",
+                                      delta_color="inverse")
+                            h5.markdown(
+                                f"<div style='padding-top:8px;font-size:1.1rem'>{icon} <b>{status}</b></div>",
+                                unsafe_allow_html=True
+                            )
+
+                            # Substitute detail (only shown when primary is short)
+                            if not r["primary_ok"] and r["sub_results"]:
+                                st.caption("Substitutes:")
+                                for s in r["sub_results"]:
+                                    s_icon = "🟢" if s["ok"] else "🔴"
+                                    st.markdown(
+                                        f"&nbsp;&nbsp;&nbsp;&nbsp;{s_icon} **{s['name']}** — "
+                                        f"Required: `{s['required']}` | Available: `{int(s['available'])}`",
+                                        unsafe_allow_html=True
+                                    )
+
+                            elif not r["primary_ok"] and not r["sub_results"]:
+                                st.caption("No substitutes defined for this material.")

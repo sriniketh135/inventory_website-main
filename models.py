@@ -59,25 +59,50 @@ class SpecList(Base):
     description = Column(String)
 
     items = relationship("Item", back_populates="spec_detail")
-    bom_entries = relationship("Bom", back_populates="spec")
+
 
 class Item(Base):
     __tablename__ = "items"
-    id = Column(Integer, primary_key=True, index=True) # This is your Item ID
-    item_name = Column(String, nullable=False)
-    spec_id = Column(Integer, ForeignKey("spec_list.id", ondelete="RESTRICT"))
-    lead_time = Column(Integer)
-    security_stock = Column(Integer, default=0)
-    rack = Column(String)
-    bin = Column(String)
-    supplier_id = Column(Integer, ForeignKey("suppliers.id", ondelete="RESTRICT"))
-    item_type = Column(Enum(ItemType), nullable=False)
+    id             = Column(Integer, primary_key=True, index=True)
+    item_name      = Column(String, nullable=False)
+    item_type      = Column(Enum(ItemType), nullable=False)
+    spec_id        = Column(Integer, ForeignKey("spec_list.id", ondelete="RESTRICT"), nullable=True)
+    supplier_id    = Column(Integer, ForeignKey("suppliers.id", ondelete="RESTRICT"), nullable=True)
+    lead_time      = Column(Integer, nullable=True)
+    security_stock = Column(Integer, nullable=True)
+    rate           = Column(Numeric(10, 2), nullable=True)
+    rack           = Column(String, nullable=True)
+    bin            = Column(String, nullable=True)
 
-    spec_detail = relationship("SpecList", back_populates="items")
-    supplier = relationship("Supplier", back_populates="items")
-    inwards = relationship("Inward", back_populates="item")
-    issues = relationship("Issue", back_populates="item")
-    bom_entries = relationship("Bom", back_populates="final_item")
+    spec_detail     = relationship("SpecList", back_populates="items")
+    supplier        = relationship("Supplier", back_populates="items")
+    inwards         = relationship("Inward", back_populates="item")
+    issues          = relationship("Issue", back_populates="item")
+    bom_as_final    = relationship("Bom", foreign_keys="[Bom.final_item_id]", back_populates="final_item")
+    bom_as_raw      = relationship("Bom", foreign_keys="[Bom.raw_item_id]",   back_populates="raw_item")
+
+
+class Bom(Base):
+    __tablename__ = "bom"
+    id            = Column(Integer, primary_key=True, index=True)
+    final_item_id = Column(Integer, ForeignKey("items.id", ondelete="RESTRICT"), nullable=False)
+    raw_item_id   = Column(Integer, ForeignKey("items.id", ondelete="RESTRICT"), nullable=False)
+    quantity      = Column(Integer, nullable=False)
+
+    final_item  = relationship("Item", foreign_keys=[final_item_id], back_populates="bom_as_final")
+    raw_item    = relationship("Item", foreign_keys=[raw_item_id],   back_populates="bom_as_raw")
+    substitutes = relationship("BomSubstitute", back_populates="bom_entry", cascade="all, delete-orphan")
+
+
+class BomSubstitute(Base):
+    __tablename__ = "bom_substitutes"
+    id                 = Column(Integer, primary_key=True, index=True)
+    bom_id             = Column(Integer, ForeignKey("bom.id", ondelete="CASCADE"), nullable=False)
+    substitute_item_id = Column(Integer, ForeignKey("items.id", ondelete="RESTRICT"), nullable=False)
+    quantity           = Column(Integer, nullable=False)
+
+    bom_entry       = relationship("Bom",  back_populates="substitutes")
+    substitute_item = relationship("Item", foreign_keys=[substitute_item_id])
 
 class Inward(Base):
     __tablename__ = "inwards"
@@ -99,15 +124,6 @@ class Issue(Base):
     issued_to = Column(String)
     item = relationship("Item", back_populates="issues")
 
-class Bom(Base):
-    __tablename__ = "bom"
-    id = Column(Integer, primary_key=True, index=True)
-    final_item_id = Column(Integer, ForeignKey("items.id", ondelete="RESTRICT"), nullable=False)
-    spec_id = Column(Integer, ForeignKey("spec_list.id", ondelete="SET NULL"), nullable=True)
-    quantity = Column(Integer, nullable=False)
-
-    final_item = relationship("Item", foreign_keys=[final_item_id], back_populates="bom_entries")
-    spec = relationship("SpecList", foreign_keys=[spec_id], back_populates="bom_entries")
 
 class AuditLog(Base):
     __tablename__ = "audit_logs"
