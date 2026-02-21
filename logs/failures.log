@@ -1,0 +1,1 @@
+2026-02-21 11:36:31,826 | user=admin | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=13 | available=11

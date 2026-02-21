@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Date, DateTime, Numeric, ForeignKey, Enum, CheckConstraint, UniqueConstraint
+from sqlalchemy import Column, Boolean, Text, Integer, String, Date, DateTime, Numeric, ForeignKey, Enum, CheckConstraint, UniqueConstraint
 from sqlalchemy.orm import relationship
 from database import Base
 import enum
@@ -108,3 +108,15 @@ class Bom(Base):
 
     final_item = relationship("Item", foreign_keys=[final_item_id], back_populates="bom_entries")
     spec = relationship("SpecList", foreign_keys=[spec_id], back_populates="bom_entries")
+
+class AuditLog(Base):
+    __tablename__ = "audit_logs"
+
+    id         = Column(Integer, primary_key=True, index=True)
+    timestamp  = Column(DateTime, nullable=False, index=True)
+    username   = Column(String, nullable=False, index=True)
+    action     = Column(String, nullable=False, index=True)
+    table_name = Column(String, nullable=False, index=True)
+    record_id  = Column(Integer, nullable=True)
+    detail     = Column(Text, nullable=True)
+    success    = Column(Boolean, default=True)
