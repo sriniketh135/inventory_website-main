@@ -161,3 +161,353 @@
 2026-02-21 17:08:01,752 | user=anonymous | action=ISSUE | table=issues | record_id=53 | detail=Insufficient stock for item_id=53 | requested=10 | available=0
 2026-02-21 17:08:01,757 | user=anonymous | action=ISSUE | table=issues | record_id=53 | detail=Insufficient stock for item_id=53 | requested=10 | available=0
 2026-02-21 17:08:04,864 | user=anonymous | action=INWARD | table=inwards | record_id=54 | detail=Duplicate invoice: INV-1771673884781
+2026-02-24 11:47:26,512 | user=admin | action=ISSUE | table=issues | record_id=2 | detail=Insufficient stock for item_id=2 | requested=5501 | available=5500
+2026-02-24 16:42:39,930 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:39,933 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:39,934 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:39,941 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:39,941 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:39,947 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:39,949 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:39,953 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:39,958 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:39,960 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:39,965 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:39,968 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:39,970 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:39,976 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:39,977 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:39,980 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:39,983 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:39,987 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:39,992 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:39,995 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:39,999 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:40,001 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:40,006 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:40,009 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:40,012 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:40,015 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:40,017 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:40,020 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:40,026 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:40,029 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:40,031 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:40,035 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:40,038 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:40,043 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:40,046 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:40,048 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:40,053 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:40,056 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:40,059 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:40,062 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:40,062 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:40,068 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:40,072 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:40,074 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:40,077 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:40,082 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:40,085 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:40,088 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:40,089 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:40,096 | user=anonymous | action=ISSUE | table=issues | record_id=25 | detail=Insufficient stock for item_id=25 | requested=1 | available=0
+2026-02-24 16:42:46,977 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:46,984 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:46,992 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:46,998 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,005 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,005 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,015 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,040 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,073 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,093 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,103 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,139 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,148 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,198 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,223 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,227 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,249 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,274 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,289 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,298 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,314 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,345 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,361 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,380 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,407 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,408 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,422 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,454 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,471 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,486 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,501 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,507 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,523 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,534 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,556 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,556 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,577 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,581 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,588 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,591 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,591 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,596 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,601 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,607 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,611 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,613 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,617 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,623 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,623 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,629 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,633 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,638 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,643 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,645 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,648 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,651 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,657 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,657 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,657 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,666 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,666 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,679 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,683 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,688 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,691 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,695 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,699 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,704 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,709 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,713 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,715 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,718 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,725 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,727 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,731 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,733 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,736 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,739 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,745 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,749 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,753 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,756 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,759 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,760 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,768 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,768 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,771 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,771 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,783 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,786 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,792 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,795 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,800 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,803 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,809 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,813 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,820 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,821 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:47,827 | user=anonymous | action=ISSUE | table=issues | record_id=26 | detail=Insufficient stock for item_id=26 | requested=10 | available=0
+2026-02-24 16:42:51,000 | user=anonymous | action=INWARD | table=inwards | record_id=27 | detail=Duplicate invoice: INV-1771931570962
+2026-02-24 16:56:25,744 | user=admin | action=ISSUE | table=issues | record_id=1 | detail=Insufficient stock for item_id=1 | requested=1 | available=0
+2026-02-24 17:05:06,972 | user=admin | action=ISSUE | table=issues | record_id=23 | detail=Insufficient stock for item_id=23 | requested=1 | available=0
+2026-02-27 16:15:37,049 | user=admin | action=ISSUE | table=issues | record_id=22 | detail=Insufficient stock for item_id=22 | requested=25000 | available=0
+2026-02-27 16:16:34,649 | user=admin | action=ISSUE | table=issues | record_id=21 | detail=Insufficient stock for item_id=21 | requested=21600 | available=0
+2026-03-03 13:47:49,377 | user=admin | action=LOGIN | table=users | record_id=None | detail=Wrong password
+2026-03-03 13:47:51,801 | user=unknown | action=LOGIN | table=users | record_id=None | detail=Failed login for username: ghost_user_xyz
+2026-03-03 13:49:36,058 | user=admin | action=LOGIN | table=users | record_id=None | detail=Wrong password
+2026-03-03 13:49:38,508 | user=unknown | action=LOGIN | table=users | record_id=None | detail=Failed login for username: ghost_user_xyz
+2026-03-03 13:51:17,155 | user=admin | action=CREATE | table=users | record_id=None | detail=Duplicate username: test_user_pytest
+2026-03-03 13:51:45,942 | user=admin | action=CREATE | table=items | record_id=None | detail=category_id missing for RAW item
+2026-03-03 13:51:48,342 | user=admin | action=CREATE | table=items | record_id=None | detail=supplier_id missing for RAW item
+2026-03-03 13:52:12,406 | user=admin | action=ISSUE | table=issues | record_id=32 | detail=Insufficient stock for item_id=32 | requested=999999 | available=105
+2026-03-03 13:53:00,261 | user=admin | action=ISSUE | table=issues | record_id=32 | detail=Invalid quantity 0 for item_id=32
+2026-03-03 13:53:02,686 | user=admin | action=DELETE | table=category_list | record_id=8 | detail=Blocked delete — 1 item(s) using category: pytest_category
+2026-03-03 13:53:05,087 | user=admin | action=DELETE | table=suppliers | record_id=8 | detail=Blocked delete — 1 item(s) using supplier: pytest_supplier
+2026-03-03 13:53:07,480 | user=admin | action=DELETE | table=items | record_id=999999 | detail=Item not found
+2026-03-03 13:53:34,133 | user=unknown | action=LOGIN | table=users | record_id=None | detail=Failed login for username: manager
+2026-03-03 13:53:36,543 | user=unknown | action=LOGIN | table=users | record_id=None | detail=Failed login for username: viewer
+2026-03-03 13:53:39,067 | user=admin | action=DELETE | table=items | record_id=32 | detail=Blocked delete — item pytest_raw_item has 3 inwards, 1 issues
+2026-03-03 13:53:43,858 | user=admin | action=DELETE | table=category_list | record_id=8 | detail=Blocked delete — 1 item(s) using category: pytest_category
+2026-03-03 13:53:46,244 | user=admin | action=DELETE | table=suppliers | record_id=8 | detail=Blocked delete — 1 item(s) using supplier: pytest_supplier
+2026-03-03 13:59:22,022 | user=admin | action=LOGIN | table=users | record_id=None | detail=Wrong password
+2026-03-03 13:59:24,442 | user=unknown | action=LOGIN | table=users | record_id=None | detail=Failed login for username: ghost_user_xyz
+2026-03-03 14:01:02,968 | user=admin | action=CREATE | table=users | record_id=None | detail=Duplicate username: test_user_pytest
+2026-03-03 14:01:10,134 | user=admin | action=DELETE | table=users | record_id=2 | detail=Attempted self-deletion
+2026-03-03 14:01:12,504 | user=admin | action=CREATE | table=category_list | record_id=None | detail=Duplicate category: pytest_category
+2026-03-03 14:01:31,666 | user=admin | action=CREATE | table=items | record_id=None | detail=category_id missing for RAW item
+2026-03-03 14:01:34,094 | user=admin | action=CREATE | table=items | record_id=None | detail=supplier_id missing for RAW item
+2026-03-03 14:01:51,051 | user=admin | action=INWARD | table=inwards | record_id=32 | detail=Duplicate invoice: INV-PYTEST-001
+2026-03-03 14:01:53,454 | user=admin | action=INWARD | table=inwards | record_id=32 | detail=Duplicate invoice: INV-PYTEST-001
+2026-03-03 14:01:58,276 | user=admin | action=ISSUE | table=issues | record_id=32 | detail=Insufficient stock for item_id=32 | requested=999999 | available=110
+2026-03-03 14:02:05,542 | user=admin | action=INWARD | table=inwards | record_id=32 | detail=Duplicate invoice: INV-PYTEST-SUPDATE
+2026-03-03 14:02:46,601 | user=admin | action=ISSUE | table=issues | record_id=32 | detail=Invalid quantity 0 for item_id=32
+2026-03-03 14:02:49,039 | user=admin | action=DELETE | table=category_list | record_id=8 | detail=Blocked delete — 2 item(s) using category: pytest_category
+2026-03-03 14:02:51,434 | user=admin | action=DELETE | table=suppliers | record_id=8 | detail=Blocked delete — 2 item(s) using supplier: pytest_supplier
+2026-03-03 14:02:53,831 | user=admin | action=DELETE | table=items | record_id=999999 | detail=Item not found
+2026-03-03 14:03:20,494 | user=unknown | action=LOGIN | table=users | record_id=None | detail=Failed login for username: manager
+2026-03-03 14:03:22,898 | user=unknown | action=LOGIN | table=users | record_id=None | detail=Failed login for username: viewer
+2026-03-03 14:03:44,377 | user=admin | action=DELETE | table=items | record_id=32 | detail=Blocked delete — item pytest_raw_item has 3 inwards, 2 issues
+2026-03-03 14:03:49,229 | user=admin | action=DELETE | table=category_list | record_id=8 | detail=Blocked delete — 2 item(s) using category: pytest_category
+2026-03-03 14:03:51,602 | user=admin | action=DELETE | table=suppliers | record_id=8 | detail=Blocked delete — 2 item(s) using supplier: pytest_supplier
+2026-03-03 15:47:32,522 | user=admin | action=LOGIN | table=users | record_id=None | detail=Wrong password
+2026-03-03 15:50:09,011 | user=unknown | action=LOGIN | table=users | record_id=None | detail=Failed login for username: __nonexistent__
+2026-03-03 15:50:09,237 | user=admin | action=LOGIN | table=users | record_id=None | detail=Wrong password
+2026-03-03 15:50:09,243 | user=unknown | action=LOGIN | table=users | record_id=None | detail=Failed login for username: ghost_cc5810f4
+2026-03-03 15:50:09,560 | user=admin | action=LOGIN | table=users | record_id=None | detail=Wrong password
+2026-03-03 15:50:10,057 | user=admin | action=CREATE | table=users | record_id=None | detail=Duplicate username: testuser_cc5810f4
+2026-03-03 15:50:10,622 | user=admin | action=DELETE | table=users | record_id=2 | detail=Attempted self-deletion
+2026-03-03 15:50:10,719 | user=admin | action=CREATE | table=category_list | record_id=None | detail=Duplicate category: Cat_cc5810f4_crud
+2026-03-03 15:50:10,822 | user=admin | action=DELETE | table=category_list | record_id=11 | detail=Blocked — 1 item(s) using it
+2026-03-03 15:50:10,872 | user=admin | action=DELETE | table=category_list | record_id=999999 | detail=Category not found
+2026-03-03 15:50:11,045 | user=admin | action=DELETE | table=suppliers | record_id=11 | detail=Blocked — 1 item(s) using supplier
+2026-03-03 15:50:11,072 | user=admin | action=DELETE | table=suppliers | record_id=999999 | detail=Supplier not found
+2026-03-03 15:50:11,220 | user=admin | action=CREATE | table=items | record_id=None | detail=category_id missing for RAW item
+2026-03-03 15:50:11,384 | user=admin | action=DELETE | table=items | record_id=36 | detail=Blocked — 1 inwards, 0 issues
+2026-03-03 15:50:11,444 | user=admin | action=DELETE | table=items | record_id=999999 | detail=Item not found
+2026-03-03 15:50:11,589 | user=admin | action=INWARD | table=inwards | record_id=36 | detail=Duplicate invoice: INV-cc5810f4-c253e3
+2026-03-03 15:50:11,741 | user=admin | action=INWARD | table=inwards | record_id=None | detail=Item not found: item_id=999999
+2026-03-03 15:50:12,228 | user=admin | action=ISSUE | table=issues | record_id=36 | detail=Insufficient stock item_id=36 requested=10542 available=543.0
+2026-03-03 15:50:12,303 | user=admin | action=ISSUE | table=issues | record_id=36 | detail=Insufficient stock item_id=36 requested=10542 available=543.0
+2026-03-03 15:50:12,387 | user=admin | action=ISSUE | table=issues | record_id=None | detail=Item not found: item_id=999999
+2026-03-03 15:50:16,464 | user=admin | action=ISSUE | table=issues | record_id=45 | detail=Insufficient stock item_id=45 requested=10 available=0.0
+2026-03-03 15:50:16,517 | user=admin | action=ISSUE | table=issues | record_id=45 | detail=Insufficient stock item_id=45 requested=10 available=0.0
+2026-03-03 15:50:16,526 | user=admin | action=ISSUE | table=issues | record_id=45 | detail=Insufficient stock item_id=45 requested=10 available=0.0
+2026-03-03 15:50:16,536 | user=admin | action=ISSUE | table=issues | record_id=45 | detail=Insufficient stock item_id=45 requested=10 available=0.0
+2026-03-03 15:50:16,609 | user=admin | action=ISSUE | table=issues | record_id=45 | detail=Insufficient stock item_id=45 requested=10 available=0.0
+2026-03-03 15:50:18,346 | user=admin | action=LOGIN | table=users | record_id=None | detail=Wrong password
+2026-03-03 15:50:18,667 | user=admin | action=LOGIN | table=users | record_id=None | detail=Wrong password
+2026-03-03 15:50:18,797 | user=admin | action=LOGIN | table=users | record_id=None | detail=Wrong password
+2026-03-03 15:50:18,906 | user=admin | action=LOGIN | table=users | record_id=None | detail=Wrong password
+2026-03-03 15:50:19,003 | user=admin | action=LOGIN | table=users | record_id=None | detail=Wrong password
+2026-03-03 15:54:35,360 | user=unknown | action=LOGIN | table=users | record_id=None | detail=Failed login for username: __nonexistent__
+2026-03-03 15:54:35,617 | user=admin | action=LOGIN | table=users | record_id=None | detail=Wrong password
+2026-03-03 15:54:35,644 | user=unknown | action=LOGIN | table=users | record_id=None | detail=Failed login for username: ghost_25d4e415
+2026-03-03 15:54:36,027 | user=admin | action=LOGIN | table=users | record_id=None | detail=Wrong password
+2026-03-03 15:54:36,553 | user=admin | action=CREATE | table=users | record_id=None | detail=Duplicate username: testuser_25d4e415
+2026-03-03 15:54:37,083 | user=admin | action=DELETE | table=users | record_id=2 | detail=Attempted self-deletion
+2026-03-03 15:54:37,229 | user=admin | action=CREATE | table=category_list | record_id=None | detail=Duplicate category: Cat_25d4e415_crud
+2026-03-03 15:54:37,361 | user=admin | action=DELETE | table=category_list | record_id=15 | detail=Blocked — 1 item(s) using it
+2026-03-03 15:54:37,485 | user=admin | action=DELETE | table=category_list | record_id=999999 | detail=Category not found
+2026-03-03 15:54:37,751 | user=admin | action=DELETE | table=suppliers | record_id=15 | detail=Blocked — 1 item(s) using supplier
+2026-03-03 15:54:37,810 | user=admin | action=DELETE | table=suppliers | record_id=999999 | detail=Supplier not found
+2026-03-03 15:54:38,001 | user=admin | action=CREATE | table=items | record_id=None | detail=category_id missing for RAW item
+2026-03-03 15:54:38,183 | user=admin | action=DELETE | table=items | record_id=48 | detail=Blocked — 1 inwards, 0 issues
+2026-03-03 15:54:38,250 | user=admin | action=DELETE | table=items | record_id=999999 | detail=Item not found
+2026-03-03 15:54:38,422 | user=admin | action=INWARD | table=inwards | record_id=48 | detail=Duplicate invoice: INV-25d4e415-51a54f
+2026-03-03 15:54:38,546 | user=admin | action=INWARD | table=inwards | record_id=None | detail=Item not found: item_id=999999
+2026-03-03 15:54:39,032 | user=admin | action=ISSUE | table=issues | record_id=48 | detail=Insufficient stock item_id=48 requested=10542 available=543.0
+2026-03-03 15:54:39,143 | user=admin | action=ISSUE | table=issues | record_id=48 | detail=Insufficient stock item_id=48 requested=10542 available=543.0
+2026-03-03 15:54:39,201 | user=admin | action=ISSUE | table=issues | record_id=None | detail=Item not found: item_id=999999
+2026-03-03 15:54:42,947 | user=admin | action=ISSUE | table=issues | record_id=57 | detail=Insufficient stock item_id=57 requested=10 available=0.0
+2026-03-03 15:54:42,976 | user=admin | action=ISSUE | table=issues | record_id=57 | detail=Insufficient stock item_id=57 requested=10 available=0.0
+2026-03-03 15:54:42,982 | user=admin | action=ISSUE | table=issues | record_id=57 | detail=Insufficient stock item_id=57 requested=10 available=0.0
+2026-03-03 15:54:42,990 | user=admin | action=ISSUE | table=issues | record_id=57 | detail=Insufficient stock item_id=57 requested=10 available=0.0
+2026-03-03 15:54:43,001 | user=admin | action=ISSUE | table=issues | record_id=57 | detail=Insufficient stock item_id=57 requested=10 available=0.0
+2026-03-03 15:54:44,197 | user=admin | action=CREATE | table=category_list | record_id=None | detail=Duplicate category: '; DROP TABLE items; --
+2026-03-03 15:54:44,757 | user=admin | action=LOGIN | table=users | record_id=None | detail=Wrong password
+2026-03-03 15:54:44,855 | user=admin | action=LOGIN | table=users | record_id=None | detail=Wrong password
+2026-03-03 15:54:44,953 | user=admin | action=LOGIN | table=users | record_id=None | detail=Wrong password
+2026-03-03 15:54:45,050 | user=admin | action=LOGIN | table=users | record_id=None | detail=Wrong password
+2026-03-03 15:54:45,154 | user=admin | action=LOGIN | table=users | record_id=None | detail=Wrong password
+2026-03-03 15:55:51,508 | user=unknown | action=LOGIN | table=users | record_id=None | detail=Failed login for username: __nonexistent__
+2026-03-03 15:55:51,773 | user=admin | action=LOGIN | table=users | record_id=None | detail=Wrong password
+2026-03-03 15:55:51,788 | user=unknown | action=LOGIN | table=users | record_id=None | detail=Failed login for username: ghost_c5130fb6
+2026-03-03 15:55:52,097 | user=admin | action=LOGIN | table=users | record_id=None | detail=Wrong password
+2026-03-03 15:55:52,637 | user=admin | action=CREATE | table=users | record_id=None | detail=Duplicate username: testuser_c5130fb6
+2026-03-03 15:55:53,122 | user=admin | action=DELETE | table=users | record_id=2 | detail=Attempted self-deletion
+2026-03-03 15:55:53,225 | user=admin | action=CREATE | table=category_list | record_id=None | detail=Duplicate category: Cat_c5130fb6_crud
+2026-03-03 15:55:53,330 | user=admin | action=DELETE | table=category_list | record_id=19 | detail=Blocked — 1 item(s) using it
+2026-03-03 15:55:53,416 | user=admin | action=DELETE | table=category_list | record_id=999999 | detail=Category not found
+2026-03-03 15:55:53,646 | user=admin | action=DELETE | table=suppliers | record_id=19 | detail=Blocked — 1 item(s) using supplier
+2026-03-03 15:55:53,705 | user=admin | action=DELETE | table=suppliers | record_id=999999 | detail=Supplier not found
+2026-03-03 15:55:53,915 | user=admin | action=CREATE | table=items | record_id=None | detail=category_id missing for RAW item
+2026-03-03 15:55:54,116 | user=admin | action=DELETE | table=items | record_id=59 | detail=Blocked — 1 inwards, 0 issues
+2026-03-03 15:55:54,201 | user=admin | action=DELETE | table=items | record_id=999999 | detail=Item not found
+2026-03-03 15:55:54,445 | user=admin | action=INWARD | table=inwards | record_id=59 | detail=Duplicate invoice: INV-c5130fb6-459651
+2026-03-03 15:55:54,577 | user=admin | action=INWARD | table=inwards | record_id=None | detail=Item not found: item_id=999999
+2026-03-03 15:55:55,012 | user=admin | action=ISSUE | table=issues | record_id=59 | detail=Insufficient stock item_id=59 requested=10542 available=543.0
+2026-03-03 15:55:55,127 | user=admin | action=ISSUE | table=issues | record_id=59 | detail=Insufficient stock item_id=59 requested=10542 available=543.0
+2026-03-03 15:55:55,198 | user=admin | action=ISSUE | table=issues | record_id=None | detail=Item not found: item_id=999999
+2026-03-03 15:55:59,133 | user=admin | action=ISSUE | table=issues | record_id=68 | detail=Insufficient stock item_id=68 requested=10 available=0.0
+2026-03-03 15:55:59,140 | user=admin | action=ISSUE | table=issues | record_id=68 | detail=Insufficient stock item_id=68 requested=10 available=0.0
+2026-03-03 15:55:59,147 | user=admin | action=ISSUE | table=issues | record_id=68 | detail=Insufficient stock item_id=68 requested=10 available=0.0
+2026-03-03 15:55:59,153 | user=admin | action=ISSUE | table=issues | record_id=68 | detail=Insufficient stock item_id=68 requested=10 available=0.0
+2026-03-03 15:55:59,164 | user=admin | action=ISSUE | table=issues | record_id=68 | detail=Insufficient stock item_id=68 requested=10 available=0.0
+2026-03-03 15:56:00,721 | user=admin | action=CREATE | table=category_list | record_id=None | detail=Duplicate category: '; DROP TABLE items; --
+2026-03-03 15:56:01,295 | user=admin | action=LOGIN | table=users | record_id=None | detail=Wrong password
+2026-03-03 15:56:01,399 | user=admin | action=LOGIN | table=users | record_id=None | detail=Wrong password
+2026-03-03 15:56:01,494 | user=admin | action=LOGIN | table=users | record_id=None | detail=Wrong password
+2026-03-03 15:56:01,597 | user=admin | action=LOGIN | table=users | record_id=None | detail=Wrong password
+2026-03-03 15:56:01,701 | user=admin | action=LOGIN | table=users | record_id=None | detail=Wrong password
+2026-03-03 16:04:06,550 | user=unknown | action=LOGIN | table=users | record_id=None | detail=Failed login for username: __none__
+2026-03-03 16:04:06,910 | user=admin | action=LOGIN | table=users | record_id=None | detail=Wrong password
+2026-03-03 16:04:06,918 | user=unknown | action=LOGIN | table=users | record_id=None | detail=Failed login for username: ghost_a07e7a30
+2026-03-03 16:04:07,474 | user=admin | action=LOGIN | table=users | record_id=None | detail=Wrong password
+2026-03-03 16:04:08,459 | user=admin | action=CREATE | table=users | record_id=None | detail=Duplicate username: viewer_test_a07e7a30
+2026-03-03 16:04:09,010 | user=admin | action=DELETE | table=users | record_id=2 | detail=Attempted self-deletion
+2026-03-03 16:04:09,020 | user=admin | action=DELETE | table=users | record_id=999999 | detail=User not found
+2026-03-03 16:04:09,298 | user=admin | action=CREATE | table=category_list | record_id=None | detail=Duplicate category: Cat_a07e7a30_crud
+2026-03-03 16:04:09,518 | user=admin | action=DELETE | table=category_list | record_id=23 | detail=Blocked — 1 item(s) using it
+2026-03-03 16:04:09,612 | user=admin | action=DELETE | table=category_list | record_id=999999 | detail=Category not found
+2026-03-03 16:04:09,754 | user=admin | action=CREATE | table=suppliers | record_id=None | detail=Duplicate supplier: DupGST_a07e7a30
+2026-03-03 16:04:09,996 | user=admin | action=DELETE | table=suppliers | record_id=23 | detail=Blocked — 1 item(s) using supplier
+2026-03-03 16:04:10,054 | user=admin | action=DELETE | table=suppliers | record_id=999999 | detail=Supplier not found
+2026-03-03 16:04:10,334 | user=admin | action=CREATE | table=items | record_id=None | detail=category_id missing for RAW item
+2026-03-03 16:04:10,921 | user=admin | action=DELETE | table=items | record_id=70 | detail=Blocked — 1 inwards, 0 issues
+2026-03-03 16:04:10,985 | user=admin | action=DELETE | table=items | record_id=999999 | detail=Item not found
+2026-03-03 16:04:11,108 | user=admin | action=INWARD | table=inwards | record_id=70 | detail=Duplicate invoice: INV-a07e7a30-ff3b62
+2026-03-03 16:04:11,212 | user=admin | action=INWARD | table=inwards | record_id=None | detail=Item not found: item_id=999999
+2026-03-03 16:04:11,927 | user=admin | action=ISSUE | table=issues | record_id=70 | detail=Insufficient stock item_id=70 requested=2000010542 available=2000000543.0
+2026-03-03 16:04:11,994 | user=admin | action=ISSUE | table=issues | record_id=70 | detail=Insufficient stock item_id=70 requested=2000010542 available=2000000543.0
+2026-03-03 16:04:12,089 | user=admin | action=ISSUE | table=issues | record_id=None | detail=Item not found: item_id=999999
+2026-03-03 16:04:18,023 | user=admin | action=ISSUE | table=issues | record_id=85 | detail=Insufficient stock item_id=85 requested=10 available=0.0
+2026-03-03 16:04:18,031 | user=admin | action=ISSUE | table=issues | record_id=85 | detail=Insufficient stock item_id=85 requested=10 available=0.0
+2026-03-03 16:04:18,042 | user=admin | action=ISSUE | table=issues | record_id=85 | detail=Insufficient stock item_id=85 requested=10 available=0.0
+2026-03-03 16:04:18,052 | user=admin | action=ISSUE | table=issues | record_id=85 | detail=Insufficient stock item_id=85 requested=10 available=0.0
+2026-03-03 16:04:18,056 | user=admin | action=ISSUE | table=issues | record_id=85 | detail=Insufficient stock item_id=85 requested=10 available=0.0
+2026-03-03 16:04:20,054 | user=admin | action=CREATE | table=items | record_id=None | detail=Integrity error: NegSS_a07e7a30
+2026-03-03 16:04:20,104 | user=admin | action=CREATE | table=items | record_id=None | detail=Integrity error: NegLT_a07e7a30
+2026-03-03 16:04:20,119 | user=admin | action=CREATE | table=category_list | record_id=None | detail=Duplicate category: '; DROP TABLE items; --
+2026-03-03 16:04:20,796 | user=admin | action=LOGIN | table=users | record_id=None | detail=Wrong password
+2026-03-03 16:04:20,911 | user=admin | action=LOGIN | table=users | record_id=None | detail=Wrong password
+2026-03-03 16:04:21,069 | user=admin | action=LOGIN | table=users | record_id=None | detail=Wrong password
+2026-03-03 16:04:21,202 | user=admin | action=LOGIN | table=users | record_id=None | detail=Wrong password
+2026-03-03 16:04:21,327 | user=admin | action=LOGIN | table=users | record_id=None | detail=Wrong password
+2026-03-03 16:07:14,510 | user=unknown | action=LOGIN | table=users | record_id=None | detail=Failed login for username: __none__
+2026-03-03 16:07:14,907 | user=admin | action=LOGIN | table=users | record_id=None | detail=Wrong password
+2026-03-03 16:07:14,929 | user=unknown | action=LOGIN | table=users | record_id=None | detail=Failed login for username: ghost_77098697
+2026-03-03 16:07:15,510 | user=admin | action=LOGIN | table=users | record_id=None | detail=Wrong password
+2026-03-03 16:07:16,524 | user=admin | action=CREATE | table=users | record_id=None | detail=Duplicate username: viewer_test_77098697
+2026-03-03 16:07:17,038 | user=admin | action=DELETE | table=users | record_id=2 | detail=Attempted self-deletion
+2026-03-03 16:07:17,044 | user=admin | action=DELETE | table=users | record_id=999999 | detail=User not found
+2026-03-03 16:07:17,296 | user=admin | action=CREATE | table=category_list | record_id=None | detail=Duplicate category: Cat_77098697_crud
+2026-03-03 16:07:17,531 | user=admin | action=DELETE | table=category_list | record_id=28 | detail=Blocked — 1 item(s) using it
+2026-03-03 16:07:17,587 | user=admin | action=DELETE | table=category_list | record_id=999999 | detail=Category not found
+2026-03-03 16:07:17,785 | user=admin | action=CREATE | table=suppliers | record_id=None | detail=Duplicate supplier: DupGST_77098697
+2026-03-03 16:07:18,113 | user=admin | action=DELETE | table=suppliers | record_id=29 | detail=Blocked — 1 item(s) using supplier
+2026-03-03 16:07:18,159 | user=admin | action=DELETE | table=suppliers | record_id=999999 | detail=Supplier not found
+2026-03-03 16:07:18,382 | user=admin | action=CREATE | table=items | record_id=None | detail=category_id missing for RAW item
+2026-03-03 16:07:19,018 | user=admin | action=DELETE | table=items | record_id=90 | detail=Blocked — 1 inwards, 0 issues
+2026-03-03 16:07:19,063 | user=admin | action=DELETE | table=items | record_id=999999 | detail=Item not found
+2026-03-03 16:07:19,194 | user=admin | action=INWARD | table=inwards | record_id=90 | detail=Duplicate invoice: INV-77098697-e36f4a
+2026-03-03 16:07:19,275 | user=admin | action=INWARD | table=inwards | record_id=None | detail=Item not found: item_id=999999
+2026-03-03 16:07:20,028 | user=admin | action=ISSUE | table=issues | record_id=90 | detail=Insufficient stock item_id=90 requested=2000010542 available=2000000543.0
+2026-03-03 16:07:20,096 | user=admin | action=ISSUE | table=issues | record_id=90 | detail=Insufficient stock item_id=90 requested=2000010542 available=2000000543.0
+2026-03-03 16:07:20,215 | user=admin | action=ISSUE | table=issues | record_id=None | detail=Item not found: item_id=999999
+2026-03-03 16:07:25,874 | user=admin | action=ISSUE | table=issues | record_id=105 | detail=Insufficient stock item_id=105 requested=10 available=0.0
+2026-03-03 16:07:25,886 | user=admin | action=ISSUE | table=issues | record_id=105 | detail=Insufficient stock item_id=105 requested=10 available=0.0
+2026-03-03 16:07:25,895 | user=admin | action=ISSUE | table=issues | record_id=105 | detail=Insufficient stock item_id=105 requested=10 available=0.0
+2026-03-03 16:07:25,903 | user=admin | action=ISSUE | table=issues | record_id=105 | detail=Insufficient stock item_id=105 requested=10 available=0.0
+2026-03-03 16:07:25,910 | user=admin | action=ISSUE | table=issues | record_id=105 | detail=Insufficient stock item_id=105 requested=10 available=0.0
+2026-03-03 16:07:27,474 | user=admin | action=CREATE | table=items | record_id=None | detail=Integrity error: NegSS_77098697
+2026-03-03 16:07:27,508 | user=admin | action=CREATE | table=items | record_id=None | detail=Integrity error: NegLT_77098697
+2026-03-03 16:07:27,527 | user=admin | action=CREATE | table=category_list | record_id=None | detail=Duplicate category: '; DROP TABLE items; --
+2026-03-03 16:07:28,212 | user=admin | action=LOGIN | table=users | record_id=None | detail=Wrong password
+2026-03-03 16:07:28,308 | user=admin | action=LOGIN | table=users | record_id=None | detail=Wrong password
+2026-03-03 16:07:28,470 | user=admin | action=LOGIN | table=users | record_id=None | detail=Wrong password
+2026-03-03 16:07:28,582 | user=admin | action=LOGIN | table=users | record_id=None | detail=Wrong password
+2026-03-03 16:07:28,682 | user=admin | action=LOGIN | table=users | record_id=None | detail=Wrong password
